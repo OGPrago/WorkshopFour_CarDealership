@@ -1,0 +1,14 @@
+Fantasy Island Cars|Fantasy Island|719-26-OATS
+10112|1993|Ford|Explorer|SUV|Red|525123|995.00
+37846|2001|Ford|Ranger|truck|Yellow|172544|1995.00
+44901|2012|Honda|Civic|SUV|Gray|103221|6995.00
+23567|2008|Toyota|Camry|sedan|Silver|145632|7995.00
+85739|2015|Chevrolet|Silverado|truck|Black|92000|16995.00
+62104|2005|Nissan|Altima|sedan|Blue|178943|3995.00
+40389|2019|Jeep|Wrangler|SUV|Green|35000|27995.00
+76890|2016|Subaru|Outback|SUV|White|62000|18995.00
+51872|2010|Ford|Fusion|sedan|Gray|112500|5995.00
+93256|2004|Honda|Accord|sedan|Red|200000|3495.00
+24680|2017|Toyota|Rav4|SUV|Black|45000|22995.00
+36429|2009|Chevrolet|Malibu|sedan|Silver|135000|4995.00
+57891|2013|Hyundai|Sonata|sedan|White|80000|8995.00
