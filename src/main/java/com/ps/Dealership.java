@@ -1,6 +1,7 @@
 package com.ps;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Dealership {
 
@@ -8,13 +9,13 @@ public class Dealership {
     private String address;
     private String phoneNumber;
     ArrayList<Vehicle> vehicles = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
 
     public Dealership(String name, String address, String phoneNumber) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-
 
     public String getName() {
         return name;
@@ -44,9 +45,17 @@ public class Dealership {
         return this.vehicles;
     }
 
-    private ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
+    public ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
+        ArrayList<Vehicle> vehiclesByPrice = new ArrayList<>();
 
-        return null;
+        for (Vehicle vehicle : vehicles) {
+            double price = vehicle.getPrice();
+            if (price >= min && price <= max) {
+                vehiclesByPrice.add(vehicle);
+            }
+        }
+
+        return vehiclesByPrice;
     }
 
     private ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {

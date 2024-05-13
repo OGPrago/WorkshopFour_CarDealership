@@ -29,6 +29,8 @@ public class DealershipFileManager {
                     String color = splitLine[5].trim();
                     int odometer = Integer.parseInt(splitLine[6].trim());
                     double price = Double.parseDouble(splitLine[7].trim());
+
+
                     dealership.getAllVehicles().add(new Vehicle(vin, year, make, model, vehicleType, color, odometer, price));
                 }
             }
@@ -36,6 +38,7 @@ public class DealershipFileManager {
             System.out.println("Error reading file.");
         }
     }
+
 
     private static void saveDealership(Dealership dealership) {
 

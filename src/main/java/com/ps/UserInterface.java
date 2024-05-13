@@ -8,6 +8,7 @@ public class UserInterface {
 
     static Dealership dealership = new Dealership("", "", "");
     static Scanner scanner = new Scanner(System.in);
+    static UserInterface ui = new UserInterface();
 
     private void init() {
         DealershipFileManager dealershipFileManager = new DealershipFileManager();
@@ -44,6 +45,7 @@ public class UserInterface {
                     processGetByGetAllVehiclesRequest();
                     break;
                 case 2:
+                    ui.processGetByPriceRequest();
                     break;
                 case 3:
                     break;
@@ -75,6 +77,38 @@ public class UserInterface {
     }
 
     private void processGetByPriceRequest() {
+        init();
+        System.out.println("Enter minimum amount:");
+        double min = scanner.nextDouble();
+        System.out.println("Enter maximum amount:");
+        double max = scanner.nextDouble();
+
+        if (min > max) {
+            System.out.println("Error: Minimum amount cannot be greater than maximum amount.");
+            return;
+        }
+
+        ArrayList<Vehicle> vehiclesByPrice = dealership.getVehiclesByPrice(min, max);
+
+        if (vehiclesByPrice.isEmpty()) {
+            System.out.println("No vehicles found within the specified price range.");
+        } else {
+            System.out.println("Vehicles within the specified price range:");
+            String dealershipInfo = dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhoneNumber();
+            System.out.println(dealershipInfo);
+            for (Vehicle vehicle : vehiclesByPrice) {
+                System.out.printf("Vin: %d|Year: %d|Make: %s|Model: %s|VehicleType: %s|Color: %s|Mileage: %d|Price: $%.2f\n",
+                        vehicle.getVin(),
+                        vehicle.getYear(),
+                        vehicle.getMake(),
+                        vehicle.getModel(),
+                        vehicle.getVehicleType(),
+                        vehicle.getColor(),
+                        vehicle.getOdometer(),
+                        vehicle.getPrice()
+                );
+            }
+        }
 
     }
 
