@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    static Dealership dealership = new Dealership("", "", "");
+    Dealership dealership = new Dealership();
     static Scanner scanner = new Scanner(System.in);
     static UserInterface ui = new UserInterface();
 
@@ -16,24 +16,22 @@ public class UserInterface {
     }
 
     public static void display() {
-        int userInput = 0;
+        mainMenu();
+    }
+
+    private static void mainMenu() {
+        byte userInput = 0;
 
         do {
             System.out.println("Welcome to Fantasy Island Cars! \nPlease select an option");
             System.out.println("\t1) All vehicles");
-            System.out.println("\t2) Vehicles by Price");
-            System.out.println("\t3) Vehicles by MakeModel");
-            System.out.println("\t4) Vehicles by Year");
-            System.out.println("\t5) Vehicles by Color");
-            System.out.println("\t6) Vehicles by Mileage");
-            System.out.println("\t7) Vehicles by ");
-            System.out.println("\t8) Add Vehicle");
-            System.out.println("\t9) Remove Vehicle");
-            System.out.println("\t10) Cart");
-            System.out.println("\t11) Exit");
+            System.out.println("\t2) Custom Search");
+            System.out.println("\t3) Add Vehicle");
+            System.out.println("\t4) Remove Vehicle");
+            System.out.println("\t5) Exit");
 
             try {
-                userInput = scanner.nextInt();
+                userInput = scanner.nextByte();
             } catch (InputMismatchException e) {
                 System.out.println("Misinput? ¬‿¬");
                 scanner.next();
@@ -42,10 +40,51 @@ public class UserInterface {
 
             switch (userInput) {
                 case 1:
-                    processGetByGetAllVehiclesRequest();
+                    ui.processGetByGetAllVehiclesRequest();
                     break;
                 case 2:
+                    customSearchMenu();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Misinput? ¬‿¬");
+            }
+
+
+        } while (userInput != 5);
+    }
+
+    private static void customSearchMenu() {
+        byte searchCommand = 0;
+
+        do {
+            System.out.println("\t1) Vehicles by Price");
+            System.out.println("\t2) Vehicles by MakeModel");
+            System.out.println("\t3) Vehicles by Year");
+            System.out.println("\t4) Vehicles by Color");
+            System.out.println("\t5) Vehicles by Mileage");
+            System.out.println("\t6) Vehicles by ");
+            System.out.println("\t7) Back");
+
+            try {
+                searchCommand = scanner.nextByte();
+            } catch (InputMismatchException e) {
+                System.out.println("Misinput? ¬‿¬");
+                scanner.next();
+                continue;
+            }
+
+            switch (searchCommand) {
+                case 1:
                     ui.processGetByPriceRequest();
+                    break;
+                case 2:
                     break;
                 case 3:
                     break;
@@ -57,23 +96,11 @@ public class UserInterface {
                     break;
                 case 7:
                     break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                case 10:
-                    break;
-                case 11:
-                    System.out.println("Goodbye!");
-                    break;
                 default:
-                    System.out.println("Misinput? ¬‿¬");
+                    break;
             }
 
-
-        } while (userInput != 11);
-
-
+        } while (searchCommand != 7);
     }
 
     private void processGetByPriceRequest() {
@@ -132,10 +159,9 @@ public class UserInterface {
 
     }
 
-    private static void processGetByGetAllVehiclesRequest() {
+    private void processGetByGetAllVehiclesRequest() {
         ArrayList<Vehicle> allVehicles = dealership.getAllVehicles();
-        DealershipFileManager dealershipFileManager = new DealershipFileManager();
-        dealershipFileManager.getDealership(dealership);
+        init();
 
         String dealershipInfo = dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhoneNumber();
         System.out.println(dealershipInfo);

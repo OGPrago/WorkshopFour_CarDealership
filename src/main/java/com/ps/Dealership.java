@@ -17,6 +17,10 @@ public class Dealership {
         this.phoneNumber = phoneNumber;
     }
 
+    public Dealership() {
+
+    }
+
     public String getName() {
         return name;
     }
