@@ -1,7 +1,6 @@
 package com.ps;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Dealership {
 
@@ -9,7 +8,7 @@ public class Dealership {
     private String address;
     private String phoneNumber;
     ArrayList<Vehicle> vehicles = new ArrayList<>();
-    static Scanner scanner = new Scanner(System.in);
+    DealershipFileManager dealershipFileManager = new DealershipFileManager();
 
     public Dealership(String name, String address, String phoneNumber) {
         this.name = name;
@@ -49,7 +48,7 @@ public class Dealership {
         return this.vehicles;
     }
 
-    public ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
+    protected ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
         ArrayList<Vehicle> vehiclesByPrice = new ArrayList<>();
 
         for (Vehicle vehicle : vehicles) {
@@ -62,36 +61,69 @@ public class Dealership {
         return vehiclesByPrice;
     }
 
-    private ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-
-        return null;
+    protected ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        ArrayList<Vehicle> vehiclesByMakeModel = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getMake().toLowerCase().contains(make.toLowerCase())
+                    && vehicle.getModel().toLowerCase().contains(model.toLowerCase())) {
+                vehiclesByMakeModel.add(vehicle);
+            }
+        }
+        return vehiclesByMakeModel;
     }
 
-    private ArrayList<Vehicle> getVehiclesByYear(int yearMin, int yearMax) {
+    protected ArrayList<Vehicle> getVehiclesByYear(int yearMin, int yearMax) {
+        ArrayList<Vehicle> vehiclesByYear = new ArrayList<>();
 
-        return null;
+        for (Vehicle vehicle : vehicles) {
+            int year = vehicle.getYear();
+            if (year >= yearMin && year <= yearMax) {
+                vehiclesByYear.add(vehicle);
+            }
+        }
+        return vehiclesByYear;
     }
 
-    private ArrayList<Vehicle> getVehiclesByColor(String color) {
-
-        return null;
+    protected ArrayList<Vehicle> getVehiclesByColor(String color) {
+        ArrayList<Vehicle> vehiclesByColor = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getColor().toLowerCase().contains(color.toLowerCase())) {
+                vehiclesByColor.add(vehicle);
+            }
+        }
+        return vehiclesByColor;
     }
 
-    private ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
+    protected ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
+        ArrayList<Vehicle> vehiclesByMileage = new ArrayList<>();
 
-        return null;
+        for (Vehicle vehicle : vehicles) {
+            int mileage = vehicle.getOdometer();
+            if (mileage >= min && mileage <= max) {
+                vehiclesByMileage.add(vehicle);
+            }
+        }
+        return vehiclesByMileage;
     }
 
-    private ArrayList<Vehicle> getVehiclesByType(String vehichleType) {
-        return null;
+    protected ArrayList<Vehicle> getVehiclesByType(String vehichleType) {
+        ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getVehicleType().toLowerCase().contains(vehichleType.toLowerCase())) {
+                vehiclesByType.add(vehicle);
+            }
+        }
+        return vehiclesByType;
     }
 
-    private void addVehicle(Vehicle vehicle) {
-
+    protected void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle); // Add the vehicle to the current Dealership's vehicles list
+        dealershipFileManager.saveDealership(this);
     }
 
-    private void removeVehicle(Vehicle vehicle) {
-
+    protected void removeVehicle(Vehicle vehicle) {
+        getAllVehicles().remove(vehicle);
+        dealershipFileManager.saveDealership(this);
     }
 
 

@@ -1,13 +1,15 @@
 package com.ps;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class DealershipFileManager {
 
 
-    public void getDealership(Dealership dealership) {
+    protected void getDealership(Dealership dealership) {
         try (BufferedReader bufReader = new BufferedReader(new FileReader("inventory.txt"))) {
             String dealershipInfo = bufReader.readLine();
             String[] dealershipInfoParts = dealershipInfo.split("\\|");
@@ -40,7 +42,27 @@ public class DealershipFileManager {
     }
 
 
-    private static void saveDealership(Dealership dealership) {
+    protected void saveDealership(Dealership dealership) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.txt"));
 
+            writer.write(String.format("%s|%s|%s\n",
+                    dealership.getName(),
+                    dealership.getAddress(),
+                    dealership.getPhoneNumber())
+            );
+
+            ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
+            for (Vehicle vehicle : vehicles) {
+                writer.write(String.format("%d|%d|%s|%s|%s|%s|%d|%f\n",
+                        vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(),
+                        vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice()));
+            }
+
+            System.out.println("Vehicle saved to inventory.txt.");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 }
